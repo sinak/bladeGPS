@@ -8,6 +8,7 @@
 #include "getopt.h"
 #else
 #include <unistd.h>
+#include <math.h> // for floor
 #endif
 
 void init_sim(sim_t *s)

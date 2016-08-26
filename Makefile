@@ -4,9 +4,9 @@
 all: bladegps
 
 SHELL=/bin/bash
-CC=gcc
-CFLAGS=-O3 -Wall -I../bladeRF/host/libraries/libbladeRF/include
-LDFLAGS=-lm -lpthread -L../bladeRF/host/build/output -lbladeRF
+CC=g++
+CFLAGS=-O3 -Wall -I../bladeRF/host/libraries/libbladeRF/include -fpermissive
+LDFLAGS=-lm -lpthread -L../bladeRF/host/build/output -lbladeRF -lncurses # ncurses required for for getch for now
 
 bladegps: bladegps.o gpssim.o getch.o
 	${CC} $^ ${LDFLAGS} -o $@
