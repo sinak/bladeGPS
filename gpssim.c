@@ -551,7 +551,7 @@ void eph2sbf(const ephem_t eph, const ionoutc_t ionoutc, unsigned long sbf[5][N_
 	long af2;
 	long tgd;
 
-	unsigned long ura = 2UL;
+	unsigned long ura = 0UL;
 	unsigned long dataId = 1UL;
 	unsigned long sbf4_page25_svId = 63UL;
 	unsigned long sbf5_page25_svId = 51UL;
@@ -974,6 +974,11 @@ int readRinexNavAll(ephem_t eph[][MAX_SAT], ionoutc_t *ionoutc, const char *fnam
 		if (NULL==fgets(str, MAX_CHAR, fp))
 			break;
 
+		// PRN
+		strncpy(tmp, str, 2);
+		tmp[2] = 0;
+		sv = atoi(tmp)-1;
+
 		// EPOCH
 		strncpy(tmp, str+3, 2);
 		tmp[2] = 0;
@@ -1018,11 +1023,6 @@ int readRinexNavAll(ephem_t eph[][MAX_SAT], ionoutc_t *ionoutc, const char *fnam
 
 		// Date and time
 		eph[ieph][sv].t = t;
-
-		// PRN
-		strncpy(tmp, str, 2);
-		tmp[2] = 0;
-		sv = atoi(tmp)-1;
 
 		// SV CLK
 		eph[ieph][sv].toc = g;
